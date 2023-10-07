@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://com.cine" targetNamespace="http://com.cine">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://com.cine" elementFormDefault="qualified">
+			<xs:include schemaLocation="xsdboleto.xsd"/> <!-- Rutas relativas-->
+			<xs:include schemaLocation="commonsboleto.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="movieTicketRequest">
+		<wsdl:part name="parameter" type="tns:boleto"/>
+	</wsdl:message>
+	<wsdl:message name="ackResponse">
+		<wsdl:part name="parameter" type="tns:ack"/>
+	</wsdl:message>
+	<wsdl:portType name="MovieTicketPortType">
+		<wsdl:operation name="buyTicketOperation">
+			<wsdl:input message="tns:movieTicketRequest"/>
+			<wsdl:output message="tns:ackResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="consultTicketOperation">
+			<wsdl:input message="tns:movieTicketRequest"/>
+			<wsdl:output message="tns:ackResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MovieTicketBinding" type="tns:MovieTicketPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="buyTicketOperation">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultTicketOperation">
+			<soap:operation soapAction="urn:#NewOperation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MovieTicketService">
+		<wsdl:port name="MovieTicket" binding="tns:MovieTicketBinding">
+			<soap:address location="No target address"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
